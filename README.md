@@ -4,6 +4,7 @@
 ```
 docker-compose up mitmproxy
 cp mitmproxy-data/mitmproxy-ca-cert.pem .
+docker-compose down
 docker-compose build
 docker-compose up -d
 ```
