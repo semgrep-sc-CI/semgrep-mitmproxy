@@ -1,0 +1,18 @@
+FROM semgrep/semgrep
+
+# Install ca-certificates tools if missing
+RUN apk add --no-cache ca-certificates
+
+# Copy and register mitmproxy CA cert
+COPY mitmproxy-ca-cert.pem /usr/local/share/ca-certificates/mitmproxy.crt
+RUN cp /usr/local/share/ca-certificates/mitmproxy.crt /etc/ssl/certs/ && update-ca-certificates
+
+
+WORKDIR /src/
+RUN git clone https://github.com/OWASP/NodeGoat
+
+WORKDIR /src/NodeGoat
+ENV SEMGREP_REPO_DISPLAY_NAME=mitimproxy
+ENV SEMGREP_APP_TOKEN=xxxxxxxxxxxxxxxxxxxxxxxxx
+ENTRYPOINT ["semgrep"]
+CMD ["ci"]
