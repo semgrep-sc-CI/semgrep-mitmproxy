@@ -18,6 +18,7 @@ services:
       context: .
       dockerfile: Dockerfile.semgrep
     container_name: semgrep
+    command: tail -f /dev/null
     environment:
       HTTP_PROXY: http://mitmproxy:8080
       HTTPS_PROXY: http://mitmproxy:8080
@@ -29,4 +30,3 @@ services:
 networks:
   semgrep-net:
     driver: bridge
-
